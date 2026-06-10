@@ -1,0 +1,456 @@
+body {
+    margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+/* LOGIN PAGE */
+.login-page-new {
+    min-height: 100vh;
+    background: #f5f6fa;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.login-shell {
+    width: 720px;
+    background: white;
+    border-radius: 18px;
+    overflow: hidden;
+    box-shadow: 0 0 25px rgba(0,0,0,.25);
+    border: 6px solid #001b44;
+}
+
+.hero-section {
+    text-align: center;
+    padding: 40px 30px 25px;
+    background: linear-gradient(135deg, #e8eef8, #ffffff);
+    position: relative;
+}
+
+.hero-section::before {
+    content: "🎉 ✨ 🎊 🎉 ✨";
+    position: absolute;
+    top: 25px;
+    left: 0;
+    width: 100%;
+    font-size: 28px;
+    opacity: .4;
+}
+
+.worldcup-mark {
+    font-size: 110px;
+    line-height: 1;
+    margin-bottom: 10px;
+    filter: drop-shadow(0 8px 10px rgba(0,0,0,.25));
+}
+
+.hero-section h1 {
+    font-size: 42px;
+    font-weight: 900;
+    color: #001b44;
+    margin: 0;
+}
+
+.hero-section h2 {
+    font-size: 30px;
+    color: #001b44;
+    font-weight: 800;
+}
+
+.host-text {
+    font-weight: bold;
+    color: green;
+}
+
+.ivy-brand {
+    margin-top: 30px;
+}
+
+.ivy-brand h2 {
+    color: white;
+    text-shadow: 0 3px 8px rgba(0,0,0,.9);
+}
+
+.ivy-brand p,
+.work-text,
+.thanks-text {
+    color: white;
+    text-shadow: 0 3px 8px rgba(0,0,0,.9);
+}
+
+.work-text {
+    color: white;
+    font-weight: bold;
+    text-shadow: 0 3px 8px rgba(0,0,0,.9);
+}
+
+.form-box {
+    margin: 25px 35px;
+    padding: 25px;
+    border-radius: 14px;
+    background: white;
+    box-shadow: 0 0 12px rgba(0,0,0,.12);
+}
+
+.form-column h3 {
+    color: #001b44;
+    font-weight: bold;
+}
+
+.form-box .btn-success {
+    background: #0b6623;
+    border-color: #0b6623;
+}
+
+.santa-card {
+    margin: 25px 35px 35px;
+    padding: 28px;
+    border-radius: 14px;
+    background: linear-gradient(135deg, #dfe8dd, #f8faf8);
+    color: #0b3d1c;
+}
+
+.santa-card h3 {
+    font-family: Georgia, serif;
+    font-weight: bold;
+}
+
+/* LOADING PAGE */
+
+.loading-page {
+    min-height: 100vh;
+    background: linear-gradient(135deg, #001b44, #003366);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+
+.loading-container {
+    text-align: center;
+    color: white;
+    width: 90%;
+    max-width: 900px;
+
+    transform: translateY(-30px);
+}
+
+.loading-message {
+    margin-top: 8px;
+    font-size: 26px;
+    font-weight: 800;
+}
+
+.loading-subtext {
+    font-size: 16px;
+    opacity: .9;
+    margin-top: 10px;
+}
+
+.loading-video {
+    width: 100%;
+    max-width: 720px;
+    max-height: 430px;
+    object-fit: cover;
+    border-radius: 18px;
+    box-shadow: 0 0 25px rgba(255,255,255,.15);
+}
+
+.loading-container h1 {
+    margin-top: 16px;
+    font-size: 38px;
+    font-weight: 900;
+}
+
+.loading-container p {
+    font-size: 20px;
+    margin-top: 10px;
+    text-shadow: 0 3px 8px rgba(0,0,0,.6);
+}
+
+.loader {
+    margin: 18px auto;
+    width: 55px;
+    height: 55px;
+    border: 6px solid rgba(255,255,255,.25);
+    border-top: 6px solid white;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+.loading-footer {
+    margin-top: 15px;
+    font-size: 14px;
+    opacity: .8;
+}
+
+@keyframes spin {
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+/* PREDICT PAGE */
+.predict-page {
+    background: #f4f6f9;
+}
+
+.top-header {
+    background: #001b44;
+    color: white;
+    padding: 18px 35px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.header-left {
+    font-size: 28px;
+    font-weight: 900;
+}
+
+.header-logo {
+    margin-right: 12px;
+}
+
+.header-right {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    font-size: 18px;
+}
+
+/* VIDEO HERO */
+.hero-video-banner {
+    position: relative;
+    width: 100%;
+    height: 420px;
+    overflow: hidden;
+    background: #001b44;
+}
+
+.hero-video-banner video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    background: #001b44;
+}
+
+.video-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 27, 68, .30);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    text-shadow: 0 4px 10px rgba(0,0,0,.8);
+}
+
+.video-overlay h1 {
+    font-size: 56px;
+    font-weight: 900;
+}
+
+.video-overlay p {
+    font-size: 20px;
+}
+
+.ivy-message {
+    font-size: 18px;
+    max-width: 750px;
+    text-align: center;
+    margin-top: 10px;
+}
+
+#soundButton {
+    position: absolute;
+    left: 25px;
+    bottom: 25px;
+    z-index: 10;
+}
+
+/* IMAGE CARD */
+.hero-card {
+    position: relative;
+    height: 100%;
+    min-height: 320px;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 8px 25px rgba(0,0,0,.15);
+}
+
+.hero-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.hero-overlay {
+    position: absolute;
+    left: 20px;
+    right: 20px;
+    bottom: 20px;
+    background: rgba(0,0,0,.55);
+    color: white;
+    padding: 16px;
+    border-radius: 12px;
+}
+
+.hero-overlay h2 {
+    margin: 0;
+    font-weight: 900;
+}
+
+/* TABLES */
+.leaderboard-scroll {
+    max-height: 420px;
+    overflow-y: auto;
+}
+
+.table-hover tbody tr:hover {
+    background-color: lightblue;
+}
+
+/* FLAGS */
+.flag {
+    width: 28px;
+    height: auto;
+    margin-right: 10px;
+    border-radius: 3px;
+    vertical-align: middle;
+}
+
+/* COUNTRY GRID */
+.country-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px 30px;
+    margin-top: 15px;
+}
+
+.country-item {
+    font-size: 17px;
+    display: flex;
+    align-items: center;
+}
+
+.footer {
+    text-align: center;
+    padding: 20px;
+    color: #001b44;
+    font-weight: bold;
+}
+
+.hero-image-section {
+    position: relative;
+}
+
+.login-hero-image {
+    width: 100%;
+    display: block;
+}
+
+.hero-text {
+    position: absolute;
+    inset: 0;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    text-align: center;
+
+    background: rgba(0,0,0,.35);
+
+    color: white;
+    text-shadow: 0 3px 10px rgba(0,0,0,.95);
+}
+
+.hero-text h1 {
+    font-size: 64px;
+    font-weight: 900;
+}
+
+.hero-text h2 {
+    font-size: 50px;
+    font-weight: 900;
+}
+
+.hero-text .host-text {
+    font-size: 22px;
+    font-weight: bold;
+}
+
+.footer {
+    text-align: center;
+    padding: 20px;
+    color: #001b44;
+    font-weight: bold;
+}
+
+@media (max-width: 768px) {
+    .login-shell {
+        width: 95%;
+        border-width: 4px;
+    }
+
+    .hero-text h1 {
+        font-size: 36px;
+    }
+
+    .hero-text h2 {
+        font-size: 28px;
+    }
+
+    .ivy-brand h2 {
+        font-size: 34px;
+        letter-spacing: 5px;
+    }
+
+    .form-box {
+        margin: 20px;
+        padding: 20px;
+    }
+
+    .top-header {
+        flex-direction: column;
+        gap: 10px;
+        text-align: center;
+    }
+
+    .header-left {
+        font-size: 20px;
+    }
+
+    .header-right {
+        font-size: 16px;
+    }
+
+    .hero-video-banner {
+        height: 260px;
+    }
+
+    .video-overlay h1 {
+        font-size: 30px;
+    }
+
+    .video-overlay p,
+    .ivy-message {
+        font-size: 14px;
+        padding: 0 15px;
+    }
+
+    .country-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .loading-video {
+        max-height: 300px;
+    }
+}
