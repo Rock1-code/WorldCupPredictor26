@@ -1,3 +1,4 @@
+console.log("NEW predict.js loaded version 5");
 let userId = localStorage.getItem("userId");
 let userName = localStorage.getItem("userName");
 
