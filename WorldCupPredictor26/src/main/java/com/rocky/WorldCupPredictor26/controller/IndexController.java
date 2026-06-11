@@ -10,7 +10,7 @@ public class IndexController {
     public String index() {
         return "index";
     }
-    
+
     @GetMapping("/welcome")
     public String welcome() {
         return "welcome";
@@ -19,5 +19,10 @@ public class IndexController {
     @GetMapping("/predict")
     public String predict() {
         return "predict";
+    }
+
+    @GetMapping("/profile")
+    public String profile() {
+        return "profile";
     }
 }

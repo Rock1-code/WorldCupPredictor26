@@ -12,6 +12,7 @@ import com.rocky.WorldCupPredictor26.repository.UserEntryRepository;
 import com.rocky.WorldCupPredictor26.service.EmailService;
 
 import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
@@ -21,6 +22,8 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/api")
 public class ApiController {
+
+    private final ZoneId losAngelesZone = ZoneId.of("America/Los_Angeles");
 
     private final UserEntryRepository userRepo;
     private final TeamEntryRepository teamRepo;
@@ -36,6 +39,15 @@ public class ApiController {
         this.teamRepo = teamRepo;
         this.predictionRepo = predictionRepo;
         this.emailService = emailService;
+    }
+
+    private String formatLosAngelesTime(LocalDateTime dateTime) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/dd/yyyy hh:mm a");
+
+        return dateTime
+                .atZone(ZoneId.systemDefault())
+                .withZoneSameInstant(losAngelesZone)
+                .format(formatter);
     }
 
     @PostMapping("/register")
@@ -105,7 +117,6 @@ public class ApiController {
     public List<PredictionEntryDto> predictions() {
 
         List<PredictionEntryDto> dtos = new ArrayList<>();
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/dd/yyyy hh:mm a");
 
         for (PredictionEntry prediction : predictionRepo.findAllByOrderByUpdatedAtDesc()) {
             dtos.add(new PredictionEntryDto(
@@ -115,7 +126,7 @@ public class ApiController {
                     prediction.getTeam().getId(),
                     prediction.getTeam().getTeamName(),
                     prediction.getTeam().getCountryCode(),
-                    prediction.getUpdatedAt().format(formatter)
+                    formatLosAngelesTime(prediction.getUpdatedAt())
             ));
         }
 
@@ -137,8 +148,6 @@ public class ApiController {
             return null;
         }
 
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/dd/yyyy hh:mm a");
-
         return new PredictionEntryDto(
                 prediction.getId(),
                 user.getId(),
@@ -146,7 +155,7 @@ public class ApiController {
                 prediction.getTeam().getId(),
                 prediction.getTeam().getTeamName(),
                 prediction.getTeam().getCountryCode(),
-                prediction.getUpdatedAt().format(formatter)
+                formatLosAngelesTime(prediction.getUpdatedAt())
         );
     }
 
@@ -172,12 +181,10 @@ public class ApiController {
         predictionRepo.save(prediction);
 
         emailService.sendPredictionConfirmation(
-               user.getEmail(),
-               user.getName(),
+                user.getEmail(),
+                user.getName(),
                 team.getTeamName()
         );
-
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/dd/yyyy hh:mm a");
 
         return new PredictionEntryDto(
                 prediction.getId(),
@@ -186,7 +193,7 @@ public class ApiController {
                 team.getId(),
                 team.getTeamName(),
                 team.getCountryCode(),
-                prediction.getUpdatedAt().format(formatter)
+                formatLosAngelesTime(prediction.getUpdatedAt())
         );
     }
 }
