@@ -7,17 +7,17 @@ if (!userId) {
 
 $("#welcomeText").text("Welcome, " + userName);
 
+function logout() {
+    localStorage.clear();
+    window.location.href = "/";
+}
+
 function flagImg(countryCode) {
     if (!countryCode) {
         return "";
     }
 
     return "<img class='flag' src='https://flagcdn.com/w40/" + countryCode + ".png'>";
-}
-
-function logout() {
-    localStorage.clear();
-    window.location.href = "/";
 }
 
 function loadTeams() {
@@ -28,53 +28,55 @@ function loadTeams() {
         data.forEach(function(team) {
             options +=
                 "<option value='" + team.id + "'>" +
-                team.teamName +
+                    team.teamName +
                 "</option>";
         });
 
         $("#teamSelect").html(options);
 
-        loadLeaderboard(data);
         loadCountries(data);
+        loadLeaderboard(data);
         loadMyPrediction();
     });
 }
 
 function loadLeaderboard(data) {
+
     let html = "";
 
     data.sort(function(a, b) {
         return b.votes - a.votes;
     });
 
-	let rank = 1;
+    let rank = 1;
 
-	data.forEach(function(team) {
+    data.forEach(function(team) {
 
-	    let medal = rank;
+        let medal = rank;
 
-	    if (rank === 1) {
-	        medal = "🥇";
-	    } else if (rank === 2) {
-	        medal = "🥈";
-	    } else if (rank === 3) {
-	        medal = "🥉";
-	    }
+        if (rank === 1) {
+            medal = "🥇";
+        } else if (rank === 2) {
+            medal = "🥈";
+        } else if (rank === 3) {
+            medal = "🥉";
+        }
 
-	    html +=
-	        "<tr>" +
-	            "<td>" + medal + "</td>" +
-	            "<td>" + flagImg(team.countryCode) + team.teamName + "</td>" +
-	            "<td>" + team.votes + "</td>" +
-	        "</tr>";
+        html +=
+            "<tr>" +
+                "<td>" + medal + "</td>" +
+                "<td>" + flagImg(team.countryCode) + " " + team.teamName + "</td>" +
+                "<td>" + team.votes + "</td>" +
+            "</tr>";
 
-	    rank++;
-	});
+        rank++;
+    });
 
     $("#leaderboardBody").html(html);
 }
 
 function loadPredictions() {
+
     $.get("/api/predictions", function(data) {
 
         let html = "";
@@ -83,7 +85,7 @@ function loadPredictions() {
             html +=
                 "<tr>" +
                     "<td>" + p.userName + "</td>" +
-                    "<td>" + flagImg(p.countryCode) + p.teamName + "</td>" +
+                    "<td>" + flagImg(p.countryCode) + " " + p.teamName + "</td>" +
                     "<td>" + p.updatedAt + "</td>" +
                 "</tr>";
         });
@@ -93,10 +95,14 @@ function loadPredictions() {
 }
 
 function loadMyPrediction() {
+
     $.get("/api/prediction?userId=" + userId, function(data) {
 
         if (data) {
-            $("#myPrediction").html(flagImg(data.countryCode) + data.teamName);
+            $("#myPrediction").html(
+                flagImg(data.countryCode) + " " + data.teamName
+            );
+
             $("#teamSelect").val(data.teamId);
         } else {
             $("#myPrediction").text("None");
@@ -105,6 +111,7 @@ function loadMyPrediction() {
 }
 
 function loadCountries(data) {
+
     let html = "";
 
     data.forEach(function(team) {
@@ -119,29 +126,59 @@ function loadCountries(data) {
 }
 
 function savePrediction() {
+
+    let selectedTeamId = parseInt($("#teamSelect").val());
+    let selectedTeamName = $("#teamSelect option:selected").text();
+
+    if (!selectedTeamId) {
+        alert("Please select a country first.");
+        return;
+    }
+
+    $("#saveBtn").prop("disabled", true).text("Saving...");
+
     $.ajax({
         url: "/api/prediction",
         method: "POST",
         contentType: "application/json",
         data: JSON.stringify({
             userId: parseInt(userId),
-            teamId: parseInt($("#teamSelect").val())
+            teamId: selectedTeamId
         }),
-        success: function() {
+        success: function(data) {
+
+            alert("Prediction saved!");
+
+            if (data) {
+                $("#myPrediction").html(
+                    flagImg(data.countryCode) + " " + data.teamName
+                );
+            } else {
+                $("#myPrediction").text(selectedTeamName);
+            }
+
             loadTeams();
             loadPredictions();
-            alert("Prediction saved!");
+
+            $("#saveBtn").prop("disabled", false).text("Save Prediction");
+        },
+        error: function(xhr) {
+            console.log(xhr.responseText);
+            alert("Prediction could not be saved. Please try again.");
+
+            $("#saveBtn").prop("disabled", false).text("Save Prediction");
         }
     });
 }
-
-loadTeams();
-loadPredictions();
 
 function toggleSound() {
 
     let video = document.getElementById("wcVideo");
     let button = document.getElementById("soundButton");
+
+    if (!video || !button) {
+        return;
+    }
 
     if (video.muted) {
         video.muted = false;
@@ -151,3 +188,6 @@ function toggleSound() {
         button.innerHTML = "🔊 Sound On";
     }
 }
+
+loadTeams();
+loadPredictions();

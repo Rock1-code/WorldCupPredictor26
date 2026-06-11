@@ -172,8 +172,8 @@ public class ApiController {
         predictionRepo.save(prediction);
 
         emailService.sendPredictionConfirmation(
-                user.getEmail(),
-                user.getName(),
+               user.getEmail(),
+               user.getName(),
                 team.getTeamName()
         );
 
